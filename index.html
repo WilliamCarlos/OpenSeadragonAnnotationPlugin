@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<script src="openseadragon/openseadragon.min.js"></script>
+<!--<script src="imageAnnotation.js"</script>-->
+</head>
+
+<body>
+<div id="openseadragonViewer" style="width: 800px; height: 600px;"></div>    
+<script type="text/javascript">
+                        //Create OpenSeadragon viewer
+                        var viewer = OpenSeadragon({
+                                id:            "openseadragonViewer",
+                                prefixUrl:     "openseadragon/images/",
+                                showNavigator: true,
+                                gestureSettingsMouse:   {
+                                        clickToZoom: false
+                                },
+                                clickToZoom: "false",
+                                tileSources:   [{
+                                        Image:  {
+                                                xmlns: "http://schemas.microsoft.com/deepzoom/2009",
+                                                Url: "spacePics/ISS044-E-1998_files/", // put image pyramid files here
+                                                TileSize: "128",
+                                                Overlap: "2",
+                                                Format: "png",
+                                                ServerFormat: "Default",
+                                                Size: {
+                                                        Width: "4928",
+                                                        Height: "3280",
+                                                }
+                                        }
+                                }],
+                        });
+</script>
+</body>
+</html>
