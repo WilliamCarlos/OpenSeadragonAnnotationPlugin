@@ -1,6 +1,5 @@
-var xgds_image_annotation = xgds_image_annotation || {};
-
-$.extend(xgds_image_annotation, {
+console.log("Getting to file");
+var openseadragon_image_annotations = {
     arrow: "",
     line: "",
     rectangle: "",
@@ -112,10 +111,11 @@ $.extend(xgds_image_annotation, {
     },
 
     /*
-    Clear xgds_image_annotation global variables (that will have been set by previous images if the viewer was loaded before)
+    Clear openseadragon_image_annotations global variables (that will have been set by previous images if the viewer was loaded before)
     Initialize member variables
      */
     initialize: function(imageJson, osdViewer) {
+	console.log("initialize");
         /* Clear variables */
         this.annotationsDict = {};
 
@@ -155,18 +155,18 @@ $.extend(xgds_image_annotation, {
         $("#colorPicker").spectrum(spectrumOptions);
 
         /* Load and display annotations */
-        xgds_image_annotation.getAnnotations();
+        openseadragon_image_annotations.getAnnotations();
 
-        if(xgds_image_annotation.showAnnotations == "false") { // This code is duplicated in the getAnnotations callback to deal with async
+        if(openseadragon_image_annotations.showAnnotations == "false") { // This code is duplicated in the getAnnotations callback to deal with async
             console.log("activated almonds");
             $("#off").click();
-            xgds_image_annotation.turnAnnotationsOnOff("off");
+            openseadragon_image_annotations.turnAnnotationsOnOff("off");
         }
 
         /* Update the currentAnnotationSize radio menubar to have the correct annotationSize selected */
-        if(xgds_image_annotation.currentAnnotationSize == "small") {
+        if(openseadragon_image_annotations.currentAnnotationSize == "small") {
             $("#small").click();
-        }else if(xgds_image_annotation.currentAnnotationSize == "medium"){
+        }else if(openseadragon_image_annotations.currentAnnotationSize == "medium"){
             $("#medium").click();
         }else{
             $("#large").click();
@@ -191,25 +191,25 @@ $.extend(xgds_image_annotation, {
             - initialize the correct function based on what the currentAnnotationType is.
          */
         this.overlay.fabricCanvas().observe('mouse:down', function (o) {
-            xgds_image_annotation.setMouseMode(xgds_image_annotation.mouseMode);
-            if (xgds_image_annotation.getMouseMode() == "addAnnotation") {
-                xgds_image_annotation.isDown = true;
+            openseadragon_image_annotations.setMouseMode(openseadragon_image_annotations.mouseMode);
+            if (openseadragon_image_annotations.getMouseMode() == "addAnnotation") {
+                openseadragon_image_annotations.isDown = true;
 
-                var pointer = xgds_image_annotation.overlay.fabricCanvas().getPointer(o.e);
-                xgds_image_annotation.origX = pointer.x;
-                xgds_image_annotation.origY = pointer.y;
-                switch (xgds_image_annotation.annotationType) {
+                var pointer = openseadragon_image_annotations.overlay.fabricCanvas().getPointer(o.e);
+                openseadragon_image_annotations.origX = pointer.x;
+                openseadragon_image_annotations.origY = pointer.y;
+                switch (openseadragon_image_annotations.annotationType) {
                     case "arrow":
-                        xgds_image_annotation.drawArrow(pointer.x, pointer.y);
+                        openseadragon_image_annotations.drawArrow(pointer.x, pointer.y);
                         break;
                     case "rectangle":
-                        xgds_image_annotation.initializeRectangle(pointer.x, pointer.y);
+                        openseadragon_image_annotations.initializeRectangle(pointer.x, pointer.y);
                         break;
                     case "ellipse":
-                        xgds_image_annotation.initializeEllipse(pointer.x, pointer.y);
+                        openseadragon_image_annotations.initializeEllipse(pointer.x, pointer.y);
                         break;
                     case "text":
-                        xgds_image_annotation.initializeTextboxPreview(pointer.x, pointer.y);
+                        openseadragon_image_annotations.initializeTextboxPreview(pointer.x, pointer.y);
                         break;
                     default:
                         console.log("That shouldn't have happened :( Undefined annotationType");
@@ -224,27 +224,27 @@ $.extend(xgds_image_annotation, {
         If isDown is true and the mouse if moved, redraw the currentAnnotationShape on canvas with the new current mouse position.
          */
         this.overlay.fabricCanvas().observe('mouse:move', function(o) {
-            if (!xgds_image_annotation.isDown) return;
-            var pointer = xgds_image_annotation.overlay.fabricCanvas().getPointer(o.e);
-            switch (xgds_image_annotation.annotationType) {
+            if (!openseadragon_image_annotations.isDown) return;
+            var pointer = openseadragon_image_annotations.overlay.fabricCanvas().getPointer(o.e);
+            switch (openseadragon_image_annotations.annotationType) {
                 case "arrow":
-                    xgds_image_annotation.updateArrow(pointer.x, pointer.y);
+                    openseadragon_image_annotations.updateArrow(pointer.x, pointer.y);
                     break;
                 case "rectangle":
-                    xgds_image_annotation.updateRectangleWidth(pointer.x, pointer.y);
+                    openseadragon_image_annotations.updateRectangleWidth(pointer.x, pointer.y);
                     break;
                 case "ellipse":
-                    xgds_image_annotation.updateEllipse(pointer.x, pointer.y);
+                    openseadragon_image_annotations.updateEllipse(pointer.x, pointer.y);
                     break;
                 case "text":
-                    xgds_image_annotation.updateTextboxPreview(pointer.x, pointer.y);
+                    openseadragon_image_annotations.updateTextboxPreview(pointer.x, pointer.y);
                     break;
                 default:
                     console.log("That shouldn't have happened :( Undefined annotationType");
                     console.log("The undefined type entered is: " + this.annotationType);
                     throw new Error("Tried to switch to an undefined annotationType");
             }
-            xgds_image_annotation.overlay.fabricCanvas().renderAll();
+            openseadragon_image_annotations.overlay.fabricCanvas().renderAll();
         });
 
         /* event listener that handles resizing the textbox based on amount of text */
@@ -261,50 +261,50 @@ $.extend(xgds_image_annotation, {
         If we are in addAnnotation mode and the mouse is lifted, save the currentAnnotationShape to Django
          */
         this.overlay.fabricCanvas().on('mouse:up', function (o) {
-            if(xgds_image_annotation.getMouseMode() == "addAnnotation") {
-                var pointerOnMouseUp = xgds_image_annotation.overlay.fabricCanvas().getPointer(event.e);
+            if(openseadragon_image_annotations.getMouseMode() == "addAnnotation") {
+                var pointerOnMouseUp = openseadragon_image_annotations.overlay.fabricCanvas().getPointer(event.e);
 
                 // save annotation to database
-                xgds_image_annotation.createNewSerialization(xgds_image_annotation.currentAnnotationType, pointerOnMouseUp.x, pointerOnMouseUp.y);
+                openseadragon_image_annotations.createNewSerialization(openseadragon_image_annotations.currentAnnotationType, pointerOnMouseUp.x, pointerOnMouseUp.y);
 
                 // Set fabric interactivity to false
-                xgds_image_annotation.setFabricCanvasInteractivity(false);
+                openseadragon_image_annotations.setFabricCanvasInteractivity(false);
 
                 // If we just added a textbox, stay in edit mode so the user can edit. Otherwise, return to OSD navigation mode.
-                if(xgds_image_annotation.currentAnnotationType.type == "text") {
-                    xgds_image_annotation.setMouseMode("editAnnotation"); // break out into edit mode
+                if(openseadragon_image_annotations.currentAnnotationType.type == "text") {
+                    openseadragon_image_annotations.setMouseMode("editAnnotation"); // break out into edit mode
                     $("#editAnnotation").click(); // set nav bar to editAnnotation
                     console.log("text added")
                 }
             }
-            xgds_image_annotation.isDown = false;
+            openseadragon_image_annotations.isDown = false;
         });
 
         // Update the database entry of any modified object
         this.overlay.fabricCanvas().on('object:modified', function () {
-            xgds_image_annotation.updateSerialization(xgds_image_annotation.overlay.fabricCanvas().getActiveObject());
+            openseadragon_image_annotations.updateSerialization(openseadragon_image_annotations.overlay.fabricCanvas().getActiveObject());
         });
 
         // Listen for mouse mode changes
         $("input[name='cursorMode']").change(function () {
             var mode = $("input[name='cursorMode']:checked").val();
-            xgds_image_annotation.setMouseMode(mode);
+            openseadragon_image_annotations.setMouseMode(mode);
         });
 
         // Listen and set for annotations on/off
         $("input[name='annotationsOnOrOff']").change(function () {
             var onOff = $("input[name='annotationsOnOrOff']:checked").val();
-            xgds_image_annotation.turnAnnotationsOnOff(onOff);
+            openseadragon_image_annotations.turnAnnotationsOnOff(onOff);
         });
 
         // Listen for user-selected annotationType
         $("input[name='annotationType']").change(function () {
-            xgds_image_annotation.annotationType = $("input[name='annotationType']:checked").val();
+            openseadragon_image_annotations.annotationType = $("input[name='annotationType']:checked").val();
         });
 
         // Listen for user-selected annotationSize
         $("input[name='annotationSize']").change(function () {
-            xgds_image_annotation.currentAnnotationSize = $("input[name='annotationSize']:checked").val();
+            openseadragon_image_annotations.currentAnnotationSize = $("input[name='annotationSize']:checked").val();
         });
 
         /*
@@ -314,9 +314,9 @@ $.extend(xgds_image_annotation, {
          */
         $('#downloadScreenshot').click(function (event) {
         		event.preventDefault();
-            var OSD_layer = xgds_image_annotation.viewer.drawer.canvas.toDataURL("image/png"); // current OSD view
-            var annotations = xgds_image_annotation.overlay.fabricCanvas().toDataURL({format: 'image/png'}); // image with annotations, transparent background
-            var imagePK = xgds_image_annotation.imageJson["pk"];
+            var OSD_layer = openseadragon_image_annotations.viewer.drawer.canvas.toDataURL("image/png"); // current OSD view
+            var annotations = openseadragon_image_annotations.overlay.fabricCanvas().toDataURL({format: 'image/png'}); // image with annotations, transparent background
+            var imagePK = openseadragon_image_annotations.imageJson["pk"];
             var postData = {
                     image1: OSD_layer,
                     image2: annotations,
@@ -335,24 +335,24 @@ $.extend(xgds_image_annotation, {
         });
 
         $('#deleteSelected').click(function() {
-            xgds_image_annotation.deleteActiveAnnotation();
+            openseadragon_image_annotations.deleteActiveAnnotation();
         });
 
         $('#deleteAll').click(function() {
-            xgds_image_annotation.deleteAllAnnotations();
+            openseadragon_image_annotations.deleteAllAnnotations();
         });
 
         $("#colorPicker").on('change.spectrum', function (e, color) {
-            xgds_image_annotation.currentAnnotationColor = color.toHexString(); //convert to hex
+            openseadragon_image_annotations.currentAnnotationColor = color.toHexString(); //convert to hex
         });
 
         $(document).keyup(function(e) {
             //TODO: change alert to some kind of error <p> tag
-            if(xgds_image_annotation.getMouseMode() != "editAnnotation" && e.which == 8) {
+            if(openseadragon_image_annotations.getMouseMode() != "editAnnotation" && e.which == 8) {
                 alert("Please enter edit annotation mode and select the annotation you would like to delete");
                 return;
             }else if(e.which == 8) { // key code 8 is the delete key (on iOS devices). If the delete key doesn't work for PCs, try adding key code 46 too.
-                xgds_image_annotation.deleteActiveAnnotation();
+                openseadragon_image_annotations.deleteActiveAnnotation();
             }
 
         });
@@ -614,11 +614,11 @@ $.extend(xgds_image_annotation, {
             datatype: 'json',
             success: function (data) {
                 data.forEach(function (annotation) {
-                    xgds_image_annotation.addAnnotationToCanvas(annotation)
+                    openseadragon_image_annotations.addAnnotationToCanvas(annotation)
                     // Not optimal but this if statement doesn't work outside of the for each for some reason
-                    if (xgds_image_annotation.showAnnotations == "false") {
+                    if (openseadragon_image_annotations.showAnnotations == "false") {
                         $("#off").click();
-                        xgds_image_annotation.turnAnnotationsOnOff("off");
+                        openseadragon_image_annotations.turnAnnotationsOnOff("off");
                     }
                 });
             },
@@ -676,7 +676,7 @@ $.extend(xgds_image_annotation, {
             },
             success: function (data) {
                 fabricObject.set({pk: data["pk"], image: data["image_pk"]});
-                xgds_image_annotation.annotationsDict[data["pk"]] = data; // add current annotation to annotationsDict
+                openseadragon_image_annotations.annotationsDict[data["pk"]] = data; // add current annotation to annotationsDict
             },
             error: function (e) {
                 console.log("Ajax error");
@@ -730,9 +730,9 @@ $.extend(xgds_image_annotation, {
             async: false,
             success: function (colorsJson) {
                 colorsJson.forEach(function (color) {
-                    xgds_image_annotation.colorsDictionary[color["id"]] = {name: color["name"], hex: color["hex"], id: color["id"]};
+                    openseadragon_image_annotations.colorsDictionary[color["id"]] = {name: color["name"], hex: color["hex"], id: color["id"]};
                 });
-                xgds_image_annotation.currentAnnotationColor = xgds_image_annotation.colorsDictionary[Object.keys(xgds_image_annotation.colorsDictionary)[0]].hex;
+                openseadragon_image_annotations.currentAnnotationColor = openseadragon_image_annotations.colorsDictionary[Object.keys(openseadragon_image_annotations.colorsDictionary)[0]].hex;
             },
             error: function (a) {
                 console.log("getAnnotationColors Ajax error");
@@ -747,8 +747,8 @@ $.extend(xgds_image_annotation, {
      */
     getColorIdFromHex: function(hexColor) {
         for (var key in this.colorsDictionary) {
-            if (xgds_image_annotation.colorsDictionary[key].hex.toString().toLowerCase() == hexColor.toString().toLowerCase()) {
-                return xgds_image_annotation.colorsDictionary[key].id;
+            if (openseadragon_image_annotations.colorsDictionary[key].hex.toString().toLowerCase() == hexColor.toString().toLowerCase()) {
+                return openseadragon_image_annotations.colorsDictionary[key].id;
             }
         }
         throw new Error("getColorIdFromHex couldn't find a match for " + hexColor);
@@ -793,7 +793,7 @@ $.extend(xgds_image_annotation, {
 
     // Get all objects from canvas and pass each one to deleteAnnotation()
     deleteAllAnnotations: function() {
-        var objects = xgds_image_annotation.overlay.fabricCanvas().getObjects();
+        var objects = openseadragon_image_annotations.overlay.fabricCanvas().getObjects();
         /* if objects is null, catch */
         if(objects.length == 0) {
             console.log("No annotations on canvas to delete");
@@ -817,7 +817,7 @@ $.extend(xgds_image_annotation, {
                 },
                 success: function (data) {
                     //delete from dict and database
-                    delete xgds_image_annotation.annotationsDict[annotation["pk"]];
+                    delete openseadragon_image_annotations.annotationsDict[annotation["pk"]];
                     annotation.remove();
                 },
                 error: function (a) {
@@ -955,9 +955,9 @@ $.extend(xgds_image_annotation, {
     },
 
     turnAnnotationsOnOff: function(onOrOff) {
-        var objects = xgds_image_annotation.overlay.fabricCanvas().getObjects();
+        var objects = openseadragon_image_annotations.overlay.fabricCanvas().getObjects();
         if (onOrOff == "off") {
-            xgds_image_annotation.showAnnotations = "false";
+            openseadragon_image_annotations.showAnnotations = "false";
             for (var i = 0; i < objects.length; i++) {
                 //set all objects as invisible and lock in position
                 objects[i].visible = false;
@@ -972,7 +972,7 @@ $.extend(xgds_image_annotation, {
                 objects[i].lockUniScaling = true;
             }
         }else{
-            xgds_image_annotation.showAnnotations = "true";
+            openseadragon_image_annotations.showAnnotations = "true";
             //set all objects as visible and unlock
             for (var i = 0; i < objects.length; i++) {
                 objects[i].visible = true;
@@ -987,9 +987,9 @@ $.extend(xgds_image_annotation, {
                 objects[i].lockUniScaling = false;
             }
         }
-        xgds_image_annotation.overlay.fabricCanvas().renderAll();
+        openseadragon_image_annotations.overlay.fabricCanvas().renderAll();
     }
-}); // end of namespace
+}; // end of namespace
 
 
 
