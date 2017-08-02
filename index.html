@@ -75,34 +75,40 @@
 </div>
 
 
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 <script src="openseadragon/openseadragon.min.js"></script>
-<script src="imageAnnotation.js"</script>
 <script type="text/javascript">
-                        //Create OpenSeadragon viewer			
-                        var viewer = OpenSeadragon({
-                                id:            "openseadragonViewer",
-                                prefixUrl:     "openseadragon/images/",
-                                showNavigator: true,
-                                gestureSettingsMouse:   {
-                                        clickToZoom: false
-                                },
-                                clickToZoom: "false",
-                                tileSources:   [{
-                                        Image:  {
-                                                xmlns: "http://schemas.microsoft.com/deepzoom/2009",
-                                                Url: "spacePics/ISS044-E-1998_files/", // put image pyramid files here
-                                                TileSize: "128",
-                                                Overlap: "2",
-                                                Format: "png",
-                                                ServerFormat: "Default",
-                                                Size: {
-                                                        Width: "4928",
-                                                        Height: "3280",
-                                                }
-                                        }
-                                }],
-                        });
-			// openseadragon_image_annotation.initialize(viewer, "");
+    //Create OpenSeadragon viewer			
+    var viewer = OpenSeadragon({
+            id:            "openseadragonViewer",
+            prefixUrl:     "openseadragon/images/",
+            showNavigator: true,
+            gestureSettingsMouse:   {
+                    clickToZoom: false
+            },
+            clickToZoom: "false",
+            tileSources:   [{
+                    Image:  {
+                            xmlns: "http://schemas.microsoft.com/deepzoom/2009",
+                            Url: "spacePics/ISS044-E-1998_files/", // put image pyramid files here
+                            TileSize: "128",
+                            Overlap: "2",
+                            Format: "png",
+                            ServerFormat: "Default",
+                            Size: {
+                                    Width: "4928",
+                                    Height: "3280",
+                            }
+                    }
+            }],
+    });
+
+	// openseadragon_image_annotation.initialize(viewer, "");
 </script>
+<script src="imageAnnotation.js"</script>
+
 </body>
 </html>
