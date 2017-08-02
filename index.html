@@ -2,13 +2,17 @@
 
 <html>
 <head>	
+<title> OSD Image Annotations Example </title>
 </head>
 
 <body>
+<h1> OSD Image Annotations Example </h1>
+
+
 <div id="openseadragonViewer" style="width: 800px; height: 600px;"></div>    
 
 <div id="annotationButtonWrapper">
-    <!-- <button id="toggleImageAnnotationsMenu" class="btn btn-primary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button> -->
+    <button id="toggleImageAnnotationsMenu" class="btn btn-primary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button>
     <p1>Annotations: </p1>
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary active">
@@ -74,12 +78,18 @@
     </br>
 </div>
 
-
+<!-- jquery -->
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
+<!-- Bootstrap 4 Alpha -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 <script src="openseadragon/openseadragon.min.js"></script>
+<script src="test.js"></script>
+<!-- <script src="imageAnnotation.js"</script> -->
 <script type="text/javascript">
     //Create OpenSeadragon viewer			
     var viewer = OpenSeadragon({
@@ -106,9 +116,9 @@
             }],
     });
 
-	// openseadragon_image_annotation.initialize(viewer, "");
+	openseadragon_image_annotation.initialize(viewer, "");
 </script>
-<script src="imageAnnotation.js"</script>
+
 
 </body>
 </html>

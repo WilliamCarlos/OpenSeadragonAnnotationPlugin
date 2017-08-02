@@ -1,3 +1,4 @@
+console.log("hello world!");
 var openseadragon_image_annotations = {
 	arrow: "",
 	line: "",
