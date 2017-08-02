@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-<script src="openseadragon/openseadragon.min.js"></script>
-<script src="imageAnnotation.js"</script>	
+<head>	
 </head>
 
 <body>
 <div id="openseadragonViewer" style="width: 800px; height: 600px;"></div>    
 
 <div id="annotationButtonWrapper">
-    <button id="toggleImageAnnotationsMenu" class="btn btn-primary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button>
+    <!-- <button id="toggleImageAnnotationsMenu" class="btn btn-primary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button> -->
     <p1>Annotations: </p1>
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary active">
@@ -77,6 +75,8 @@
 </div>
 
 
+<script src="openseadragon/openseadragon.min.js"></script>
+<script src="imageAnnotation.js"</script>
 <script type="text/javascript">
                         //Create OpenSeadragon viewer			
                         var viewer = OpenSeadragon({
@@ -102,7 +102,7 @@
                                         }
                                 }],
                         });
-			openseadragon_image_annotation.initialize(viewer, "");
+			// openseadragon_image_annotation.initialize(viewer, "");
 </script>
 </body>
 </html>
