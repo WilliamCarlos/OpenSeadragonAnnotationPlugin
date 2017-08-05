@@ -24,22 +24,6 @@ var openseadragon_image_annotations = {
     */
     annotationsDict: {},
 
-    /*
-    Stores a dictionary of pre-set (string)color -> (string)hex pairs.
-    Loaded through ajax on document.onReady()
-    */
-    colorsDictionary: {},
-
-    /*
-    Spectrum color palette. Stores an array of colors in the correct format for the spectrum color picker.
-    */
-    spectrumColorPalette: [],
-
-    /*
-    Boolean of whether colors dictionary is loaded or not
-    */
-    colorsLoaded: false,
-
     /* the mouse can be in 3 modes:
      1.) OSD (for interaction w/ OSD viewer, drag/scroll/zoom around the map
      2.) addAnnotation (disable OSD mode and enable click/drag on fabricJS canvas to draw an annotation)
@@ -140,16 +124,12 @@ var openseadragon_image_annotations = {
         	this.imageAnnotationToolbarStatus = "visible";
         }
 
-        /* Load colors into colors dictionary if not already loaded. This populates the colors dictionary AND creates the spectrum color palette */
-        //TODO: change this back later--keep for now to prevent continuous-annotation-drawing bug
-        this.spectrumColorPalette = this.getPaletteColors();
-
-        // Initialize color picker options
+		// Initialize color picker options
         var spectrumOptions = {
         	showPaletteOnly: true,
         	showPalette: true,
-        	palette: this.spectrumColorPalette,
-            color: this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].hex //set default color as the "first" key in colorsDictionary
+        	palette: [["red", "green", "blue"]],
+            color: "red"
         };
 
         $("#colorPicker").spectrum(spectrumOptions);
@@ -719,66 +699,6 @@ var openseadragon_image_annotations = {
         });
     },
 
-    /*
-    Annotation color options are stored on the server side. Pull to js side dictionary (later loaded into color picker)
-    */
-    getAnnotationColors: function() {
-    	$.ajax({
-    		type: "POST",
-    		url: '/xgds_image/getAnnotationColors/',
-    		datatype: 'json',
-    		async: false,
-    		success: function (colorsJson) {
-    			colorsJson.forEach(function (color) {
-    				openseadragon_image_annotations.colorsDictionary[color["id"]] = {name: color["name"], hex: color["hex"], id: color["id"]};
-    			});
-    			openseadragon_image_annotations.currentAnnotationColor = openseadragon_image_annotations.colorsDictionary[Object.keys(openseadragon_image_annotations.colorsDictionary)[0]].hex;
-    		},
-    		error: function (a) {
-    			console.log("getAnnotationColors Ajax error");
-    			console.log(a);
-    		}
-    	});
-    },
-
-    /*
-     Given a hex, returns the django id/pk
-     MUST USE # IN FRONT
-     */
-     getColorIdFromHex: function(hexColor) {
-     	for (var key in this.colorsDictionary) {
-     		if (openseadragon_image_annotations.colorsDictionary[key].hex.toString().toLowerCase() == hexColor.toString().toLowerCase()) {
-     			return openseadragon_image_annotations.colorsDictionary[key].id;
-     		}
-     	}
-     	throw new Error("getColorIdFromHex couldn't find a match for " + hexColor);
-     },
-
-    /*
-     Populate colorsDictionary through getAnnotationColors()
-     Return array for spectrum color picker palette
-     Split spectrum color picker into two rows
-     */
-     getPaletteColors: function() {
-        this.getAnnotationColors(); //now the dictionary should be full
-
-        var retval = [];
-
-        var row1 = [];
-        var row2 = [];
-
-        var theKeys = Object.keys(this.colorsDictionary);
-
-        for (var i = 0; i < theKeys.length; i = i + 2) {
-        	row1.push(this.colorsDictionary[theKeys[i]].hex);
-        	if (i + 1 < theKeys.length) {
-        		row2.push(this.colorsDictionary[theKeys[i + 1]].hex);
-        	}
-        }
-        retval.push(row1);
-        retval.push(row2);
-        return retval;
-    },
 
     // Select the currently selected annotation from the canvas and pass on to deleteAnnotation
     deleteActiveAnnotation: function() {
@@ -859,7 +779,7 @@ var openseadragon_image_annotations = {
     	this.rect = new fabric.Rect({
     		left: annotationJson["left"],
     		top: annotationJson["top"],
-    		stroke: this.colorsDictionary[annotationJson["strokeColor"]].hex,
+    		stroke: annotationJson["strokeColor"], // todo: hex?
     		strokeWidth: annotationJson["strokeWidth"],
     		originX: annotationJson["originX"],
     		originY: annotationJson["originY"],
@@ -882,7 +802,7 @@ var openseadragon_image_annotations = {
     	this.ellipse = new fabric.Ellipse({
     		left: annotationJson["left"],
     		top: annotationJson["top"],
-    		stroke: this.colorsDictionary[annotationJson["strokeColor"]].hex,
+    		stroke: annotationJson["strokeColor"], // todo: hex?
     		strokeWidth: annotationJson["strokeWidth"],
     		originX: annotationJson["originX"],
     		originY: annotationJson["originY"],
@@ -910,7 +830,7 @@ var openseadragon_image_annotations = {
     		strokeWidth: annotationJson["strokeWidth"],
     		originX: annotationJson["originX"],
     		originY: annotationJson["originY"],
-    		fill: this.colorsDictionary[annotationJson["fill"]].hex,
+    		fill: annotationJson["fill"], // todo: hex? fill or strokeColor?
     		angle: annotationJson["angle"],
     		type: 'arrow',
     		scaleX: annotationJson["scaleX"],
@@ -930,12 +850,12 @@ var openseadragon_image_annotations = {
     	this.text = new fabric.Textbox("hello world", {
     		left: annotationJson["left"],
     		top: annotationJson["top"],
-    		stroke: this.colorsDictionary[annotationJson["strokeColor"]].hex,
+    		stroke: annotationJson["strokeColor"], // todo: hex?
     		strokeWidth: annotationJson["strokeWidth"],
     		originX: annotationJson["originX"],
     		originY: annotationJson["originY"],
-    		fill: this.colorsDictionary[annotationJson["fill"]].hex,
-    		borderColor: this.colorsDictionary[annotationJson["fill"]].hex,
+    		fill: annotationJson["fill"], // todo: hex? fill?
+    		borderColor: annotationJson["fill"], // todo: hex? fill?
     		angle: annotationJson["angle"],
     		width: annotationJson["width"],
     		height: annotationJson["height"],

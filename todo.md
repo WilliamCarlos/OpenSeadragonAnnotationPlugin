@@ -8,4 +8,8 @@
 - Switch from bootstrap to purecss
 - Figure out js plugin namespacing
 - How to provide menu? Don't really want to integrate with OSD viewer controls... but just giving html is meh
+- Figure out how to import/export colors
 
+# In Progress
+- Delete color picker ajax stuff
+- Colors dictionary -> annotationsJson["strokeColor"]
