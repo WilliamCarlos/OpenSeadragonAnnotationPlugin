@@ -88,6 +88,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <script src="openseadragon/openseadragon.min.js"></script>
+<script src="fabric.js/dist/fabric.js"></script>
+<script src="openseadragon-fabricjsOverlay/openseadragon-fabricjs-overlay.js"></script>
+
 <script src="test.js"></script>
 <!-- <script src="imageAnnotation.js"</script> -->
 <script type="text/javascript">
@@ -115,8 +118,7 @@
                     }
             }],
     });
-
-	openseadragon_image_annotation.initialize(viewer, "");
+    openseadragon_image_annotations.initialize("", viewer);
 </script>
 
 

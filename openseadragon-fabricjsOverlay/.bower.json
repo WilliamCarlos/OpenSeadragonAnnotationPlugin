@@ -1,0 +1,13 @@
+{
+  "name": "openseadragon-fabricjsOverlay",
+  "homepage": "https://github.com/altert/OpenseadragonFabricjsOverlay",
+  "_release": "2b6ce02dc6",
+  "_resolution": {
+    "type": "commit",
+    "commit": "2b6ce02dc6a920e6549dc6f5a4dd62b7bbf31970"
+  },
+  "_source": "https://github.com/altert/OpenseadragonFabricjsOverlay.git",
+  "_target": "2b6ce02dc6a920e6549dc6f5a4dd62b7bbf31970",
+  "_originalSource": "https://github.com/altert/OpenseadragonFabricjsOverlay.git",
+  "_direct": true
+}
