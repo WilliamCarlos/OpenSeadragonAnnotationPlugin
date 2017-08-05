@@ -631,72 +631,74 @@ var openseadragon_image_annotations = {
     		this.textboxPreview.remove();
     		fabricObject = this.text;
     	}
-    	var temp = this.duplicateObject(fabricObject);
 
-        // Color edge cases/aesthetic
-        if(fabricObject.type == "arrow") { //arrow only needs fill
-        	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
-            temp["stroke"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign stroke to a random color to keep database happy. We ignore this when we repaint arrow on load
+    	// This next block was modified, might not work so maybe don't base your code off of it
+        // // Color edge cases/aesthetic
+		// var temp = this.duplicateObject(fabricObject);
+        // if(fabricObject.type == "arrow") { //arrow only needs fill
+        // 	temp["fill"] = fabricObject["fill"];
+        //     temp["stroke"] = fabricObject["fill"]  //assign stroke to a random color to keep database happy. We ignore this when we repaint arrow on load
+        //
+        // }else if (fabricObject.type == "text") { //text needs both stroke and fill
+        // 	temp["stroke"] = fabricObject["stroke"];
+        // 	temp["fill"] = fabricObject["fill"];
+        // } else { //everything else only needs stroke
+        // 	temp["stroke"] = fabricObject["stroke"];
+        //     temp["fill"] = fabricObject["stroke"];  //assign fill to a random color to keep database happy. We ignore this when we repaint any non-arrow on load
+        // }
 
-        }else if (fabricObject.type == "text") { //text needs both stroke and fill
-        	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
-        	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
-        } else { //everything else only needs stroke
-        	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
-            temp["fill"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign fill to a random color to keep database happy. We ignore this when we repaint any non-arrow on load
-        }
-
-        $.ajax({
-        	type: "POST",
-        	url: '/xgds_image/addAnnotation/',
-        	datatype: 'json',
-        	data: {
-        		annotation: JSON.stringify(temp),
-        		image_pk: this.imageJson["pk"]
-        	},
-        	success: function (data) {
-        		fabricObject.set({pk: data["pk"], image: data["image_pk"]});
-                openseadragon_image_annotations.annotationsDict[data["pk"]] = data; // add current annotation to annotationsDict
-            },
-            error: function (e) {
-            	console.log("Ajax error");
-            	console.log(e);
-            }
-        });
+		// This ajax call should be good though
+        // $.ajax({
+        // 	type: "POST",
+        // 	url: '/xgds_image/addAnnotation/',
+        // 	datatype: 'json',
+        // 	data: {
+        // 		annotation: JSON.stringify(temp),
+        // 		image_pk: this.imageJson["pk"]
+        // 	},
+        // 	success: function (data) {
+        // 		fabricObject.set({pk: data["pk"], image: data["image_pk"]});
+        //         openseadragon_image_annotations.annotationsDict[data["pk"]] = data; // add current annotation to annotationsDict
+        //     },
+        //     error: function (e) {
+        //     	console.log("Ajax error");
+        //     	console.log(e);
+        //     }
+        // });
     },
 
     /* Update annotation's database entry. */
     updateSerialization: function(fabricObject) {
-    	var temp = this.duplicateObject(fabricObject);
-
-        if(fabricObject.type == "arrow") { //arrow only needs fill
-        	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
-            temp["stroke"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign stroke to a random color to keep database happy. We ignore this when we repaint arrow on load
-
-        }else if (fabricObject.type == "text") { //text needs both stroke and fill
-        	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
-        	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
-        } else { //everything else only needs stroke
-        	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
-            temp["fill"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign fill to a random color to keep database happy. We ignore this when we repaint any non-arrow on load
-        }
-
-        $.ajax({
-        	type: "POST",
-        	url: '/xgds_image/alterAnnotation/',
-        	datatype: 'json',
-        	data: {
-        		annotation: JSON.stringify(temp),
-        		image_pk: this.imageJson["pk"]
-        	},
-        	success: function (data) {
-
-        	},
-        	error: function (a) {
-        		console.log("Alter annotation ajax error");
-        		console.log(a)
-        	}
-        });
+        // var temp = this.duplicateObject(fabricObject);
+        //
+        // if(fabricObject.type == "arrow") { //arrow only needs fill
+        // 	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
+        //     temp["stroke"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign stroke to a random color to keep database happy. We ignore this when we repaint arrow on load
+        //
+        // }else if (fabricObject.type == "text") { //text needs both stroke and fill
+        // 	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
+        // 	temp["fill"] = this.getColorIdFromHex(fabricObject["fill"]);
+        // } else { //everything else only needs stroke
+        // 	temp["stroke"] = this.getColorIdFromHex(fabricObject["stroke"]);
+        //     temp["fill"] = this.colorsDictionary[Object.keys(this.colorsDictionary)[0]].id;  //assign fill to a random color to keep database happy. We ignore this when we repaint any non-arrow on load
+        // }
+        //
+        // $.ajax({
+        // 	type: "POST",
+        // 	url: '/xgds_image/alterAnnotation/',
+        // 	datatype: 'json',
+        // 	data: {
+        // 		annotation: JSON.stringify(temp),
+        // 		image_pk: this.imageJson["pk"]
+        // 	},
+        // 	success: function (data) {
+        //
+        // 	},
+        // 	error: function (a) {
+        // 		console.log("Alter annotation ajax error");
+        // 		console.log(a)
+        // 	}
+        //});
     },
 
 
