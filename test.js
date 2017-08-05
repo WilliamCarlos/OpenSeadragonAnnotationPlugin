@@ -587,26 +587,26 @@ var openseadragon_image_annotations = {
 
     /* Retrieve and draw on canvas all stored annotations from Django */
     getAnnotations: function() {
-    	var imagePK = this.imageJson["pk"];
-    	$.ajax({
-    		type: "POST",
-    		url: '/xgds_image/getAnnotations/' + imagePK,
-    		datatype: 'json',
-    		success: function (data) {
-    			data.forEach(function (annotation) {
-    				openseadragon_image_annotations.addAnnotationToCanvas(annotation)
-                    // Not optimal but this if statement doesn't work outside of the for each for some reason
-                    if (openseadragon_image_annotations.showAnnotations == "false") {
-                    	$("#off").click();
-                    	openseadragon_image_annotations.turnAnnotationsOnOff("off");
-                    }
-                });
-    		},
-    		error: function (a) {
-    			console.log(a);
-    			throw "Error while loading annotations"
-    		}
-    	});
+    	// var imagePK = this.imageJson["pk"];
+    	// $.ajax({
+    	// 	type: "POST",
+    	// 	url: '/xgds_image/getAnnotations/' + imagePK,
+    	// 	datatype: 'json',
+    	// 	success: function (data) {
+    	// 		data.forEach(function (annotation) {
+    	// 			openseadragon_image_annotations.addAnnotationToCanvas(annotation)
+         //            // Not optimal but this if statement doesn't work outside of the for each for some reason
+         //            if (openseadragon_image_annotations.showAnnotations == "false") {
+         //            	$("#off").click();
+         //            	openseadragon_image_annotations.turnAnnotationsOnOff("off");
+         //            }
+         //        });
+    	// 	},
+    	// 	error: function (a) {
+    	// 		console.log(a);
+    	// 		throw "Error while loading annotations"
+    	// 	}
+    	// });
     },
 
     /* JSON currentAnnotationShape -> Ajax -> Django ORM/MariaDB */

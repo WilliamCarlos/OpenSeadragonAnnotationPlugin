@@ -16,5 +16,6 @@
 - Figure out how to deal with importing new/non standard colors (probably make a later feature, when initializing library pass options of colors
 - Comment out createNewSerialization (so others can fill in)
 - Comment out updateSerialization (so others can fill in)
-- Update delete code
+- Comment out getAnnotations
+- Comment out deleteAnnotations
 - stroke/strokeColor confusion
