@@ -13,3 +13,8 @@
 # In Progress
 - Delete color picker ajax stuff
 - Colors dictionary -> annotationsJson["strokeColor"]
+- Figure out how to deal with importing new/non standard colors (probably make a later feature, when initializing library pass options of colors
+- Comment out createNewSerialization (so others can fill in)
+- Comment out updateSerialization (so others can fill in)
+- Update delete code
+- stroke/strokeColor confusion
