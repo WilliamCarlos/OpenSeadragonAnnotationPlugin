@@ -729,29 +729,33 @@ var openseadragon_image_annotations = {
 
     /* Delete annotation from annotationsDict and the database */
     deleteAnnotation: function(annotation) {
-    	if (annotation["pk"] in this.annotationsDict) {
-    		$.ajax({
-    			type: "POST",
-    			url: '/xgds_image/deleteAnnotation/',
-    			datatype: "json",
-    			data: {
-    				pk: annotation["pk"]
-    			},
-    			success: function (data) {
-                    //delete from dict and database
-                    delete openseadragon_image_annotations.annotationsDict[annotation["pk"]];
-                    annotation.remove();
-                },
-                error: function (a) {
-                	console.log("Ajax error");
-                	console.log(a)
-                	throw new Error("Unable to delete the annotation's entry from the database");
-                }
-            });
-    	} else {
-            //annotation not saved in database anyways, just remove from canvas
-            this.overlay.fabricCanvas().getActiveObject().remove();
-        }
+
+    	// Code to delete from Django database. Use as reference.
+        // if (annotation["pk"] in this.annotationsDict) {
+    		// $.ajax({
+    		// 	type: "POST",
+    		// 	url: '/xgds_image/deleteAnnotation/',
+    		// 	datatype: "json",
+    		// 	data: {
+    		// 		pk: annotation["pk"]
+    		// 	},
+    		// 	success: function (data) {
+        //             //delete from dict and database
+        //             delete openseadragon_image_annotations.annotationsDict[annotation["pk"]];
+        //             annotation.remove();
+        //         },
+        //         error: function (a) {
+        //         	console.log("Ajax error");
+        //         	console.log(a)
+        //         	throw new Error("Unable to delete the annotation's entry from the database");
+        //         }
+        //     });
+        // } else {
+        //     //annotation not saved in database anyways, just remove from canvas
+        //     this.overlay.fabricCanvas().getActiveObject().remove();
+        // }
+
+        this.overlay.fabricCanvas().getActiveObject().remove();
     },
 
     /*
