@@ -19,6 +19,7 @@
 - If you add css near or around the viewer (i.e. \<br> above the viewer, or add padding left/right of the viewer) the annotations don't scale correctly on zoom. I suspect this is due to the fabric canvas not sticking to the OSD div correctly (this part of the code was taken from https://github.com/altert/OpenseadragonFabricjsOverlay).
 
 # Wishlist <3
+- Fix the annotations-not-scaling-correctly-if-css-added-to-move-viewer bug
 - Better textbox UI flow
 - Make download button work (clientside, js)
 - Rotate annotations on image rotate
