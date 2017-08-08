@@ -11,7 +11,7 @@
 
 # Issues
 - Serialization. Unfortunately, you'll have to implement most of the serialization yourself if you want to save to a database. Shouldn't be too difficult with my commented code still there, and you can export/import everything using the fabricjs JSON functions mentioned above. 
-- If you add css near or around the viewer (i.e. <br> above the viewer, or add padding left/right of the viewer) the annotations don't scale correctly on zoom. I suspect this is due to the fabric canvas not sticking to the OSD div correctly (this part of the code was taken from https://github.com/altert/OpenseadragonFabricjsOverlay.
+- If you add css near or around the viewer (i.e. \<br> above the viewer, or add padding left/right of the viewer) the annotations don't scale correctly on zoom. I suspect this is due to the fabric canvas not sticking to the OSD div correctly (this part of the code was taken from https://github.com/altert/OpenseadragonFabricjsOverlay.
 
 # Wishlist <3
 - Better textbox UI flow
