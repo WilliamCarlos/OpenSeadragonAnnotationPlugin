@@ -4,8 +4,8 @@
 # Notes
 - If you want to connect these annotations to a database, fill out the createNewSerialization(), updateSerialization(), getAnnotations(), and deleteAnnotation() methods. Commented out Django ajax code is there for reference.
 - Otherwise, you can serialize using JSON using the default fabricjs functions
--- JSON.stringify(openseadragon_image_annotations.overlay.fabricCanvas())
--- openseadragon_image_annotations.overlay.fabricCanvas().loadFromJSON([your json])
+  - JSON.stringify(openseadragon_image_annotations.overlay.fabricCanvas())
+  - openseadragon_image_annotations.overlay.fabricCanvas().loadFromJSON([your json])
 - The download screenshot button doesn't work (was doing it server side using PIL, clientside merging not implemented (so if you have some spare time on your hands... ;) ;))
 - This is not integrated with the OSD navbar so you'll have to fit in my HTML controls somewhere :/
 
