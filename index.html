@@ -6,23 +6,24 @@
 </head>
 
 <body>
-<h1> OSD Image Annotations Example </h1>
+<h3 style="text-align: center"> OSD Image Annotations Example </h3>
 
 
 <div id="openseadragonViewer" style="width: 800px; height: 600px;"></div>    
 
+<div id="imageAnnotationToolbarAndButtons">
 <div id="annotationButtonWrapper">
-    <button id="toggleImageAnnotationsMenu" class="btn btn-primary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button>
+    <button id="toggleImageAnnotationsMenu" class="btn btn-secondary" onclick="openseadragon_image_annotations.toggleMenuBar()">Annotate Image</button>
     <p1>Annotations: </p1>
     <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary active">
+        <label class="btn btn-secondary active">
             <input type="radio" name="annotationsOnOrOff" id="on" autocomplete="off" value="on" checked>On
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-secondary">
             <input type="radio" name="annotationsOnOrOff" id="off" autocomplete="off" value="off">Off
         </label>
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id="downloadScreenshot">Download Screenshot</button>
+    <button type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="downloadScreenshot">Download Screenshot</button>
 </div>
 
 <div id="imageAnnotationToolbar">
@@ -33,42 +34,42 @@
     </br>
     <div id="imageToolbarRow1">
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary active">
+            <label class="btn btn-secondary active">
                 <input type="radio" name="cursorMode" id="navigateImage" autocomplete="off" value="OSD" checked>Navigate
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="cursorMode" id="addAnnotation" autocomplete="off" value="addAnnotation">Add Annotations
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="cursorMode" id="editAnnotation" autocomplete="off" value="editAnnotation">Edit Annotations
             </label>
         </div>
     </div>
     <div id="imageToolbarRow2">
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary active">
+            <label class="btn btn-secondary active">
                 <input type="radio" name="annotationType" id="arrow" autocomplete="off" value="arrow" checked>Arrow
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="annotationType" id="rectangle" autocomplete="off" value="rectangle">Rectangle
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="annotationType" id="ellipse" autocomplete="off" value="ellipse">Ellipse
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="annotationType" id="text" autocomplete="off" value="text">Text
             </label>
         </div>
     </div>
     <div id="imageToolbarRow3">
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="annotationSize" id="small" autocomplete="off" value="small">Small
             </label>
-            <label class="btn btn-primary active">
+            <label class="btn btn-secondary active">
                 <input type="radio" name="annotationSize" id="medium" autocomplete="off" value="medium" checked>Medium
             </label>
-            <label class="btn btn-primary">
+            <label class="btn btn-secondary">
                 <input type="radio" name="annotationSize" id="large" autocomplete="off" value="large">Large
             </label>
         </div>
@@ -76,12 +77,12 @@
     </div>
 
     <div id="imageToolbarRow4">
-        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id="deleteSelected">Delete Selected</button>
-        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id="deleteAll">Delete All</button>
+        <button type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="deleteSelected">Delete Selected</button>
+        <button type="button" class="btn btn-secondary" data-toggle="button" aria-pressed="false" autocomplete="off" id="deleteAll">Delete All</button>
     </div>
     </br>
 </div>
-
+</div>
 <!-- jquery -->
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -97,7 +98,7 @@
 <script src="spectrum/spectrum.js"></script>
 <link rel="stylesheet" href="spectrum/spectrum.css">
 
-<script src="test.js"></script>
+<script src="imageAnnotation.js"></script>
 <!-- <script src="imageAnnotation.js"</script> -->
 <script type="text/javascript">
     //Create OpenSeadragon viewer			
