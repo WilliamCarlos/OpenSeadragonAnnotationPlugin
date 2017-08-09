@@ -22,7 +22,7 @@
 - Fix the annotations-not-scaling-correctly-if-css-added-to-move-viewer bug
 - Better textbox UI flow
 - Make download button work (clientside, js)
-- Rotate annotations on image rotate
+- Rotate annotations on image rotate (https://github.com/altert/OpenseadragonFabricjsOverlay/issues/9#issuecomment-321000022)
 - Integrate with OSD controls maybe
 - Fix the menu bar css (lost customcss, now it doesn't look as it did in its prime :|)
 - Anything else to improve the codebase, I don't have too much time to maintain this but found OSD annotation tools pretty lacking so hopefully this can serve as a starting place for something bigger <3
